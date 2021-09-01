@@ -1,25 +1,27 @@
 const inquirer = require('inquirer');
 const { prompt } = require('inquirer');
 const cTable = require('console.table');
+    // To print table..
+    // console.table([
+    //   {
+    //     name: 'foo',
+    //     age: 10
+    //   }, {
+    //     name: 'bar',
+    //     age: 20
+    //   }
+    // ]);
 const mysql = require('mysql2');
+const Connection = require('mysql2/typings/mysql/lib/Connection');
 
-// To print table..
-// console.table([
-//   {
-//     name: 'foo',
-//     age: 10
-//   }, {
-//     name: 'bar',
-//     age: 20
-//   }
-// ]);
+
 
 // Establish mySQL connection
 const db = mysql.createConnection(
     {
         host: 'localhost',
         user: 'root',
-        password: 'NOPE NOT TODAY HACKERS',
+        password: '$hru33eRy@667%',
         database: 'employee_tracker',
     },
     console.log(`Connected to the database.`)
@@ -43,7 +45,8 @@ const mainMenu = [
             'View all employees',
             'Add a role',
             'Add an employee',
-            'Update an employee role'
+            'Update an employee role',
+            'Quit'
         ]
     }
 ]
@@ -136,6 +139,12 @@ function trackEmployees() {
             if (response.action == 'Add a role') {
                 prompt(addRoleQuestions)
             }
+
+
+            // When 'Quit' is selected, end connection
+            if (response.action == 'Quit') {
+                Connection.end();
+            }            
         })
 }
 trackEmployees();
